@@ -152,11 +152,11 @@ away_odds = prob_to_market_odds(away_prob)
 col1, col2 = st.columns(2)
 
 with col1:
-    st.success(f'Home Win Probability: {round(home_prob*100, 3)}%')
+    st.success(f'Home Win Probability: {home_prob*100:.2f}%')
     st.success(f'Home Odds: {home_odds}')
 
 with col2:
-    st.success(f'Away Win Probability:  {round(away_prob*100, 3)}%')
+    st.success(f'Away Win Probability:  {away_prob*100:.2f}%')
     st.success(f'Away Odds: {away_odds}')
 
     
