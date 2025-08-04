@@ -94,21 +94,28 @@ score_differential = -score_differential
 #         st.markdown("Away Team Winning", unsafe_allow_html=True)
 
 
-col1, col2, col3 = st.columns([2, 6, 2])
-with col1:
-    st.markdown(
-        '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
-        'padding:6px 18px; font-size:1em; color:#48FF6A; '
-        'white-space:nowrap;">Home Team Winning</span>',
-        unsafe_allow_html=True
-    )
-with col3:
-    st.markdown(
-        '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
-        'padding:6px 18px; font-size:1em; color:#48FF6A; '
-        'white-space:nowrap;">Away Team Winning</span>',
-        unsafe_allow_html=True
-    )
+label_html_left = (
+    '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:12px; '
+    'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
+    'Home Team Winning</span>'
+)
+label_html_right = (
+    '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:12px; '
+    'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
+    'Away Team Winning</span>'
+)
+
+st.markdown(
+    f"""
+    <table style="width:100%; border-collapse:collapse; border:none;">
+      <tr>
+        <td style="text-align:left; border:none;">{label_html_left}</td>
+        <td style="text-align:right; border:none;">{label_html_right}</td>
+      </tr>
+    </table>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 st.divider()
@@ -191,21 +198,31 @@ format =  '%.1f', key="home_spread")
 # After your slider
 
 
-col1, col2, col3 = st.columns([4, 8, 4])
-label_style = (
-    "display:inline-block; border:2px solid #48FF6A; border-radius:10px; "
-    "padding:2px 6px; font-size:0.95em; color:#48FF6A; font-weight:bold; white-space:nowrap;"
+label_html_left = (
+    '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:12px; '
+    'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
+    'Home Team Favored</span>'
 )
-with col1:
-    st.markdown(
-        f'<div style="text-align:left; height: 32px;">'
-        f'<span style="{label_style}">Home Winning</span>'
-        f'</div>', unsafe_allow_html=True)
-with col3:
-    st.markdown(
-        f'<div style="text-align:right; height: 32px;">'
-        f'<span style="{label_style}">Away Winning</span>'
-        f'</div>', unsafe_allow_html=True)
+label_html_right = (
+    '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:12px; '
+    'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
+    'Away Team Favored</span>'
+)
+
+st.markdown(
+    f"""
+    <table style="width:100%; border-collapse:collapse; border:none;">
+      <tr>
+        <td style="text-align:left; border:none;">{label_html_left}</td>
+        <td style="text-align:right; border:none;">{label_html_right}</td>
+      </tr>
+    </table>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+
 
     
 
