@@ -132,18 +132,22 @@ def prob_to_market_prob(prob):
     vig_p2 = overround - vig_p1
     return vig_p1, vig_p2
 
-
 # Combine functions.
 def prob_to_market_odds(prob):
     inflated_prob = prob_to_market_prob(prob)[0]
     market_odds = prob_to_odds(inflated_prob)
-    rounded_odds = round(market_odds, -(len(str(abs(market_odds)))-2))
+    rounded_odds = int(round(market_odds, -(len(str(abs(market_odds)))-2)))
+    if rounded_odds > 100:
+        rounded_odds = min(rounded_odds, 5000)
+    if rounded_odds < 100:
+        rounded_odds = max(rounded_odds, -100000)
     if abs(rounded_odds) == 100:
         return f'(EVEN)'
     elif rounded_odds > 100:
-        return f'(+{round(market_odds, -(len(str(abs(market_odds)))-2))})'
+        return f'(+{rounded_odds})'
     else:
         return f'({rounded_odds})'
+
 
 home_prob = expit(model.predict(X_input))[0]
 home_odds = prob_to_market_odds(home_prob)
