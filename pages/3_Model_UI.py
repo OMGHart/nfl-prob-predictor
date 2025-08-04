@@ -128,7 +128,7 @@ def prob_to_market_prob(prob):
     hold = 0.0476
     overround = 1 + hold
     fair_total = p1 + p2
-    vig_p1 = min((p1 / fair_total) * overround, 0.999)
+    vig_p1 = min((p1 / fair_total) * overround, 0.99999)
     vig_p2 = overround - vig_p1
     return vig_p1, vig_p2
 
