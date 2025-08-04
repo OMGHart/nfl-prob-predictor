@@ -11,7 +11,7 @@ model = joblib.load('ui_model.pkl')
 
 
 st.markdown("""
-This tool predicts home win probability.
+This tool predicts win NFL win probability.
 """)
 
 
@@ -44,11 +44,18 @@ for k, v in DEFAULTS.items():
     if k not in st.session_state:
         st.session_state[k] = v
 
-if st.button("🔄 Reset to Default"):
-    for k, v in DEFAULTS.items():
-        st.session_state[k] = v
-    st.rerun()
 
+if st.session_state.get("reset_triggered", False):
+    st.session_state['qtr'] = 1
+    st.session_state['score_differential'] = 0
+    st.session_state['qtr'] = 1
+    st.session_state['clock'] = 15
+    st.session_state['yardline'] = 50
+    st.session_state['down'] = 1
+    st.session_state['ydstogo'] = 10
+    st.session_state['home_spread'] = 0
+    st.session_state['reset_triggered'] = False
+    st.rerun()
 
 
 # qtr = st.slider("Quarter", 1, 4, key="qtr")
@@ -58,26 +65,131 @@ if st.button("🔄 Reset to Default"):
 # ydstogo = st.slider("First Down Yards To go", 0, 30, key="ydstogo")
 # home_spread = st.slider("Home Team Pregame Spread", -14, 14, key="home_spread")
 
-score_differential = st.slider("Score Differential (Home-Away)", -30, 30, 0, key="score_differential")
+st.subheader("Game State")
+
 home_pos = st.radio(
     "Possession",
     options=[1, 0],
     format_func=lambda x: "Home" if x == 1 else "Away",
+    horizontal = True,
     key="home_pos"
 )
+# st.divider()
+# st.subheader("Score Differential")
+
+score_differential = st.slider("Score Differential", 30, 
+    -30, 
+    key="score_differential")
+
+score_differential = -score_differential
+
+# with st.container():
+#     st.subheader("Game State")
+#     possession = st.radio("Possession", ["Home", "Away"])
+#     score_diff = st.slider("Score Differential (Home - Away)", -30, 30, 0)
+#     col1, col2, col3 = st.columns([1, 2, 1])
+#     with col1:
+#         st.markdown("Home Team Winning", unsafe_allow_html=True)
+#     with col3:
+#         st.markdown("Away Team Winning", unsafe_allow_html=True)
+
+
+col1, col2, col3 = st.columns([2, 6, 2])
+with col1:
+    st.markdown(
+        '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
+        'padding:6px 18px; font-size:1em; color:#48FF6A; '
+        'white-space:nowrap;">Home Team Winning</span>',
+        unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
+        'padding:6px 18px; font-size:1em; color:#48FF6A; '
+        'white-space:nowrap;">Away Team Winning</span>',
+        unsafe_allow_html=True
+    )
+
+
+st.divider()
+
+st.subheader("Clock")
+
 qtr = st.radio(
     "Quarter",
     options=[1, 2, 3, 4], 
+    horizontal = True,
     key="qtr")
-clock = st.slider("Clock (Minutes Remaining)", 0, 15, 15, key="clock")
-yardline = st.slider("Distance from Score", 0, 100, 50, key="yardline")
+clock = st.slider("Minutes Remaining", 0, 15, key="clock")
+
+st.divider()
+
+st.subheader("Field Position")
+
+yardline = st.slider("Possession Team Distance From Score (Yards)", 0, 100, key="yardline")
+
+# st.markdown('<span style="color:lightgreen;">⬆ Goal Line</span>', unsafe_allow_html=True)
+
+# st.markdown(
+#         """
+#         <div style="text-align:left; font-size:1.0em; color:lightgreen">
+#          <span style="border:2px solid #48FF6A; padding:4px 18px; border-radius:8px;">GOAL LINE</span>
+#         </div>
+#         """, unsafe_allow_html=True
+#     )
+
+st.markdown(
+    ' <div style="text-align:left; font-size:1.0em; color:lightgreen">⬆️   <span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
+    'padding:6px 18px; font-size:1em; color:#48FF6A; '
+    'white-space:nowrap;">Goal Line</span>',
+    unsafe_allow_html=True
+)
+# col1, col2, col3 = st.columns([1, 2, 1])
+# with col1:
+#     st.markdown('<span style="color:lightgreen;">⬆️ Goal Line</span>', unsafe_allow_html=True)
+# with col2:
+#     st.markdown("<center><span style='color:gray;'></span></center>", unsafe_allow_html=True)
+# with col3:
+#     st.markdown('<span style="color:lightgreen; float:right;">Away Team Favored</span>', unsafe_allow_html=True)
+
+st.divider()
+
+st.subheader("Down & Distance")
+
 down = st.radio(
     "Down",
     options=[1, 2, 3, 4],
+    horizontal = True,
     key="down"
 )
-ydstogo = st.slider("First Down Yards To Go", 0, 30, 10, key="ydstogo")
-home_spread = st.slider("Home Team Pregame Spread", -14, 14, 0, key="home_spread")
+ydstogo = st.slider("First Down Distance (Yards)", 0, 30, key="ydstogo")
+
+st.divider()
+
+st.subheader("Home Team Pregame Spread")
+home_spread = st.slider("",min_value = -21.0, 
+    max_value = 21.0, 
+    step = .5,
+format =  '%.1f', key="home_spread")
+col1, col2, col3 = st.columns([2, 6, 2])
+with col1:
+    st.markdown(
+        '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
+        'padding:6px 18px; font-size:1em; color:#48FF6A; '
+        'white-space:nowrap;">Home Team Favored</span>',
+        unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
+        'padding:6px 18px; font-size:1em; color:#48FF6A; '
+        'white-space:nowrap;">Away Team Favored</span>',
+        unsafe_allow_html=True
+    )
+
+
+
+
 game_seconds_remaining = ((4-qtr)*15+clock)*60
 time_weight = 1-(game_seconds_remaining/3600)
 
@@ -155,6 +267,9 @@ away_prob = 1-home_prob
 away_odds = prob_to_market_odds(away_prob)
 
 
+st.divider()
+
+
 col1, col2 = st.columns(2)
 
 with col1:
@@ -165,6 +280,12 @@ with col2:
     st.success(f'Away Win Probability:  {away_prob*100:.2f}%')
     st.success(f'Away Odds: {away_odds}')
 
+st.markdown("&nbsp;", unsafe_allow_html=True)
+
+
+if st.button("🔄 Reset to Default"):
+    st.session_state['reset_triggered'] = True
+    st.rerun()
     
     
     
