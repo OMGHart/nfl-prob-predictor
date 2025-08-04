@@ -3,6 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from xgboost import XGBClassifier, XGBRegressor
+from scipy.special import logit, expit
 
 st.title("Hart's NFL Win Probability Predictor")
 
@@ -144,10 +145,11 @@ def prob_to_market_odds(prob):
     else:
         return f'({rounded_odds})'
 
-home_prob = model.predict(X_input)[0]
+home_prob = expit(model.predict(X_input))[0]
 home_odds = prob_to_market_odds(home_prob)
 away_prob = 1-home_prob
 away_odds = prob_to_market_odds(away_prob)
+
 
 col1, col2 = st.columns(2)
 
