@@ -6,7 +6,7 @@ from xgboost import XGBClassifier, XGBRegressor
 
 st.title("Hart's NFL Win Probability Predictor")
 
-model = joblib.load('../ui_model.pkl')
+model = joblib.load('ui_model.pkl')
 
 
 st.markdown("""
