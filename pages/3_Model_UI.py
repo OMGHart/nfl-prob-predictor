@@ -171,21 +171,44 @@ home_spread = st.slider("",min_value = -21.0,
     max_value = 21.0, 
     step = .5,
 format =  '%.1f', key="home_spread")
-col1, col2, col3 = st.columns([2, 6, 2])
+# col1, col2, col3 = st.columns([2, 8, 2])
+# with col1:
+#     st.markdown(
+#         '<div style="test-align:left;">'
+#         '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
+#         'padding:6px 18px; font-size:1em; color:#48FF6A; '
+#         'white-space:nowrap;">Home Team Favored</span>',
+#         unsafe_allow_html=True
+#     )
+# with col3:
+#     st.markdown(
+#         '<div style="test-align:right;">'
+#         '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
+#         'padding:6px 18px; font-size:1em; color:#48FF6A; '
+#         'white-space:nowrap;">Away Team Favored</span>',
+#         unsafe_allow_html=True
+    # )
+# After your slider
+
+
+col1, col2, col3 = st.columns([4, 8, 4])
+label_style = (
+    "display:inline-block; border:2px solid #48FF6A; border-radius:10px; "
+    "padding:2px 6px; font-size:0.95em; color:#48FF6A; font-weight:bold; white-space:nowrap;"
+)
 with col1:
     st.markdown(
-        '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
-        'padding:6px 18px; font-size:1em; color:#48FF6A; '
-        'white-space:nowrap;">Home Team Favored</span>',
-        unsafe_allow_html=True
-    )
+        f'<div style="text-align:left; height: 32px;">'
+        f'<span style="{label_style}">Home Winning</span>'
+        f'</div>', unsafe_allow_html=True)
 with col3:
     st.markdown(
-        '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
-        'padding:6px 18px; font-size:1em; color:#48FF6A; '
-        'white-space:nowrap;">Away Team Favored</span>',
-        unsafe_allow_html=True
-    )
+        f'<div style="text-align:right; height: 32px;">'
+        f'<span style="{label_style}">Away Winning</span>'
+        f'</div>', unsafe_allow_html=True)
+
+    
+
 
 
 
