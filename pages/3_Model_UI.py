@@ -301,31 +301,118 @@ def prob_to_market_odds(prob):
         return f'({rounded_odds})'
 
 
-home_prob = expit(model.predict(X_input))[0]
-home_odds = prob_to_market_odds(home_prob)
-away_prob = 1-home_prob
-away_odds = prob_to_market_odds(away_prob)
+home_win_prob = expit(model.predict(X_input))[0]
+home_odds = prob_to_market_odds(home_win_prob)
+away_win_prob = 1-home_win_prob
+away_odds = prob_to_market_odds(away_win_prob)
 
 
 st.divider()
 
 
-col1, col2 = st.columns(2)
+# col1, col2 = st.columns(2)
 
-with col1:
-    st.success(f'Home Win Probability: {home_prob*100:.2f}%')
-    st.success(f'Home Odds: {home_odds}')
+# with col1:
+#     st.success(f'Home Win Probability: {home_prob*100:.2f}%')
+#     st.success(f'Home Odds: {home_odds}')
 
-with col2:
-    st.success(f'Away Win Probability:  {away_prob*100:.2f}%')
-    st.success(f'Away Odds: {away_odds}')
+# with col2:
+#     st.success(f'Away Win Probability:  {away_prob*100:.2f}%')
+#     st.success(f'Away Odds: {away_odds}')
 
-st.markdown("&nbsp;", unsafe_allow_html=True)
+# st.markdown("&nbsp;", unsafe_allow_html=True)
 
 
 if st.button("🔄 Reset to Default"):
     st.session_state['reset_triggered'] = True
     st.rerun()
-    
-    
-    
+
+
+# Define your card style as a Python variable
+# card_style = (
+#     "background-color:#1e472d;"      # Change this hex to any color you want!
+#     "padding:32px 20px;"
+#     "border-radius:20px;"
+#     "margin-bottom:16px;"
+#     "color:white;"
+#     "font-size:1em;"
+#     "font-family:sans-serif;"
+#     "text-align:center;"
+# )
+
+# # Render cards using columns
+# col1, col2 = st.columns(2)
+# with col1:
+#     st.markdown(
+#         f'<div style="{card_style}">Home Win Probability: {home_win_prob*100:.2f}%</div>',
+#         unsafe_allow_html=True
+#     )
+# with col2:
+#     st.markdown(
+#         f'<div style="{card_style}">Away Win Probability: {away_win_prob*100:.2f}%</div>',
+#         unsafe_allow_html=True
+#     )
+
+# col3, col4 = st.columns(2)
+# with col3:
+#     st.markdown(
+#         f'<div style="{card_style}">Home Odds: {home_odds}</div>',
+#         unsafe_allow_html=True
+#     )
+# with col4:
+#     st.markdown(
+#         f'<div style="{card_style}">Away Odds: {away_odds}</div>',
+#         unsafe_allow_html=True
+#     )
+
+card_style = (
+    # "background-color:#244533;"
+    "padding:28px 12px;"
+    "border-radius:20px;"
+    "margin:8px 0px;"
+    "color:white;"
+    # "font-size:1.5em;"
+    "font-family:sans-serif;"
+    "text-align:center;"
+    "width:96%;"  # slight shrink to prevent overflow on small screens
+)
+
+card_home = f'<div style="{card_style};\
+    background-color:darkblue; \
+    font-size:1.5em; \
+    ">Home Win Probability: {home_win_prob*100:.2f}%</div>'
+card_away = f'<div style="{card_style}; \
+    background-color:darkred; \
+    font-size:1.5em; \
+    ">Away Win Probability: {away_win_prob*100:.2f}%</div>'
+
+st.markdown(
+    f"""
+    <table style="width:100%; border-collapse:collapse; border:none;">
+      <tr>
+        <td style="vertical-align:top; border:none; width:50%;">{card_home}</td>
+        <td style="vertical-align:top; border:none; width:50%;">{card_away}</td>
+      </tr>
+    </table>
+    """,
+    unsafe_allow_html=True,
+)
+
+card_home_odds = f'<div style="{card_style}; \
+background-color:darkblue; \
+">Home Odds: {home_odds}</div>'
+card_away_odds = f'<div style="{card_style}; \
+background-color:darkred; \
+">Away Odds: {away_odds}</div>'
+
+st.markdown(
+    f"""
+    <table style="width:100%; border-collapse:collapse; border:none;">
+      <tr>
+        <td style="vertical-align:top; border:none; width:50%;">{card_home_odds}</td>
+        <td style="vertical-align:top; border:none; width:50%;">{card_away_odds}</td>
+      </tr>
+    </table>
+    """,
+    unsafe_allow_html=True,
+)
