@@ -225,15 +225,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
-
-
-    
-
-
-
-
-
 game_seconds_remaining = ((4-qtr)*15+clock)*60
 time_weight = 1-(game_seconds_remaining/3600)
 
@@ -249,9 +240,6 @@ user_inputs = {
 
 # st.write("Quarter Selected:", qtr)
 
-
-
-
 print("✅ Model loaded:", type(model))
 
 
@@ -266,7 +254,6 @@ X_input = pd.DataFrame([[user_inputs.get(col, 0) for col in user_inputs.keys()]]
 
 X_input['yardline_100_home'] = X_input.apply(lambda X:(100-X['yardline_100_home']) if X['home_pos'] == 0 else X['yardline_100_home'], axis = 1)
 # st.write(X_input)
-
 
 # X_input['time_weight'] = .5
 
@@ -311,7 +298,6 @@ away_win_prob = 1-home_win_prob
 away_odds = prob_to_market_odds(away_win_prob)
 
 
-st.divider()
 
 
 # col1, col2 = st.columns(2)
@@ -538,10 +524,10 @@ st.markdown(
         left: 0;
         bottom: 0;
         width: 100vw;
-        height: 25vh;
+        height: 15vh;
         background: rgba(20,30,40,0.97);
         z-index: 9999;
-        padding: 18px 0 12px 0;
+        padding: 24px 0 12px 0;
         display: flex;
         justify-content: center;
     }}
@@ -549,17 +535,18 @@ st.markdown(
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
-        gap: 24px;
-        width: 90vw;
-        height: 20hw;
-        max-width: 760px;
+        gap: 10px;
+        width: 190vw;
+        # height: 1vh;
+        max-width: 600px;
+
     }}
     .panel-cell {{
         border-radius: 24px;
         font-size: 1em;
         font-weight: 500;
         color: #fff;
-        padding: 20px 0 20px 0;
+        padding: 8px 0 0px 0;
         text-align: center;
         box-shadow: 0 4px 28px #0006;
         min-width: 0;
@@ -573,6 +560,7 @@ st.markdown(
             flex-direction: column;
             gap: 12px;
             width: 98vw;
+            # height: 10vh;
         }}
         .panel-cell {{
             font-size: 1.1em;
@@ -583,10 +571,10 @@ st.markdown(
     <div class="fixed-2x2-panel">
       <div class="panel-grid">
         <div class="panel-cell cell-home">
-            Home Win Probability:<br>{home_win_prob*100:.2f}%
+            Home Win Probability: {home_win_prob*100:.2f}%
         </div>
         <div class="panel-cell cell-away">
-            Away Win Probability:<br>{away_win_prob*100:.2f}%
+            Away Win Probability:  {away_win_prob*100:.2f}%
         </div>
         <div class="panel-cell cell-home">
             Home Odds: {home_odds}
