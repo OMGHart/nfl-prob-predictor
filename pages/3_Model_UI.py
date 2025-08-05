@@ -546,8 +546,8 @@ st.markdown(
     }}
     .panel-cell {{
         border-radius: 24px;
-        font-size: 1em;
-        font-weight: 400;
+        font-size: .9em;
+        font-weight: 600;
         color: #fff;
         padding: 2px 0 2px 0;
         text-align: center;
