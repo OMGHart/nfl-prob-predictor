@@ -7,7 +7,7 @@ from scipy.special import logit, expit
 
 st.title("Hart's NFL Win Probability Predictor")
 
-model = joblib.load('ui_model_2.pkl')
+model = joblib.load('ui_model.pkl')
 
 
 st.markdown("""
