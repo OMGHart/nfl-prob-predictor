@@ -519,12 +519,15 @@ away_odds = prob_to_market_odds(away_win_prob)
 st.markdown(
     f"""
     <style>
+    .main .block-container {{
+        padding-bottom: 70px;
+    }}
     .fixed-2x2-panel {{
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100vw;
-        height: 15vh;
+        height: 20vh;
         background: rgba(20,30,40,0.97);
         z-index: 9999;
         padding: 24px 0 12px 0;
