@@ -81,11 +81,30 @@ home_pos = st.radio(
 # st.divider()
 # st.subheader("Score Differential")
 
+
+
 score_differential = st.slider("Score Differential", 30, 
     -30, 
     key="score_differential")
 
-score_differential = -score_differential
+# This creates three columns, and uses only the center one.
+st.markdown("""
+    <style>
+    /* Try to override slider width */
+    div[data-testid="stSlider"] > div {
+        width: 500px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+st.slider("Score Differential", -30, 30, 0)
+
+
+
+
+
+# score_differential = -score_differential
 
 # with st.container():
 #     st.subheader("Game State")
@@ -99,12 +118,12 @@ score_differential = -score_differential
 
 
 label_html_left = (
-    '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:12px; '
+    '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
     'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
     'Home Team Winning</span>'
 )
 label_html_right = (
-    '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:12px; '
+    '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
     'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
     'Away Team Winning</span>'
 )
