@@ -520,14 +520,14 @@ st.markdown(
     f"""
     <style>
     .main .block-container {{
-        padding-bottom: 70px;
+        padding-bottom: 80px;
     }}
     .fixed-2x2-panel {{
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100vw;
-        height: 20vh;
+        height: 19vh;
         background: rgba(20,30,40,0.97);
         z-index: 9999;
         padding: 24px 0 12px 0;
@@ -547,7 +547,7 @@ st.markdown(
     .panel-cell {{
         border-radius: 24px;
         font-size: 1em;
-        font-weight: 500;
+        font-weight: 400;
         color: #fff;
         padding: 6px 0 6px 0;
         text-align: center;
