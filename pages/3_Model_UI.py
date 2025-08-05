@@ -365,54 +365,160 @@ if st.button("🔄 Reset to Default"):
 #         unsafe_allow_html=True
 #     )
 
-card_style = (
-    # "background-color:#244533;"
-    "padding:28px 12px;"
-    "border-radius:20px;"
-    "margin:8px 0px;"
-    "color:white;"
-    # "font-size:1.5em;"
-    "font-family:sans-serif;"
-    "text-align:center;"
-    "width:96%;"  # slight shrink to prevent overflow on small screens
-)
+# card_style = (
+#     # "background-color:#244533;"
+#     "padding:28px 12px;"
+#     "border-radius:20px;"
+#     "margin:8px 0px;"
+#     "color:white;"
+#     # "font-size:1.5em;"
+#     "font-family:sans-serif;"
+#     "text-align:center;"
+#     "width:96%;"  # slight shrink to prevent overflow on small screens
+# )
 
-card_home = f'<div style="{card_style};\
-    background-color:darkblue; \
-    font-size:1.5em; \
-    ">Home Win Probability: {home_win_prob*100:.2f}%</div>'
-card_away = f'<div style="{card_style}; \
-    background-color:darkred; \
-    font-size:1.5em; \
-    ">Away Win Probability: {away_win_prob*100:.2f}%</div>'
+# card_home = f'<div style="{card_style};\
+#     background-color:darkblue; \
+#     font-size:1.5em; \
+#     ">Home Win Probability: {home_win_prob*100:.2f}%</div>'
+# card_away = f'<div style="{card_style}; \
+#     background-color:darkred; \
+#     font-size:1.5em; \
+#     ">Away Win Probability: {away_win_prob*100:.2f}%</div>'
+
+# st.markdown(
+#     f"""
+#     <table style="width:100%; border-collapse:collapse; border:none;">
+#       <tr>
+#         <td style="vertical-align:top; border:none; width:50%;">{card_home}</td>
+#         <td style="vertical-align:top; border:none; width:50%;">{card_away}</td>
+#       </tr>
+#     </table>
+#     """,
+#     unsafe_allow_html=True,
+# )
+
+# card_home_odds = f'<div style="{card_style}; \
+# background-color:darkblue; \
+# ">Home Odds: {home_odds}</div>'
+# card_away_odds = f'<div style="{card_style}; \
+# background-color:darkred; \
+# ">Away Odds: {away_odds}</div>'
+
+# st.markdown(
+#     f"""
+#     <table style="width:100%; border-collapse:collapse; border:none;">
+#       <tr>
+#         <td style="vertical-align:top; border:none; width:50%;">{card_home_odds}</td>
+#         <td style="vertical-align:top; border:none; width:50%;">{card_away_odds}</td>
+#       </tr>
+#     </table>
+#     """,
+#     unsafe_allow_html=True,
+# )
+
+
+# st.markdown(
+#     f"""
+#     <style>
+#     .floating-panel {{
+#         position: fixed;
+#         left: 0;
+#         bottom: 0;
+#         width: 100vw;
+#         background: rgba(20,30,40,0.98);
+#         color: #fff;
+#         padding: 20px 0 10px 0;
+#         box-shadow: 0 -2px 24px 0 #0007;
+#         z-index: 9999;
+#         display: flex;
+#         justify-content: center;
+#         gap: 60px;
+#     }}
+#     .floating-panel > div {{
+#         background: #244533;
+#         border-radius: 18px;
+#         padding: 16px 38px;
+#         font-size: 1.4em;
+#         font-weight: 700;
+#         box-shadow: 0 2px 16px #0003;
+#     }}
+#     </style>
+#     <div class="floating-panel">
+#         <div>Home Win: {home_win_prob*100:.2f}%</div>
+#         <div>Away Win: {away_win_prob*100:.2f}%</div>
+#         <div>Home Odds: {home_odds}</div>
+#         <div>Away Odds: {away_odds}</div>
+#     </div>
+#     """, unsafe_allow_html=True
+# )
 
 st.markdown(
     f"""
-    <table style="width:100%; border-collapse:collapse; border:none;">
-      <tr>
-        <td style="vertical-align:top; border:none; width:50%;">{card_home}</td>
-        <td style="vertical-align:top; border:none; width:50%;">{card_away}</td>
-      </tr>
-    </table>
+    <style>
+    .fixed-2x2-panel {{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100vw;
+        background: rgba(20,30,40,0.97);
+        z-index: 9999;
+        padding: 24px 0 12px 0;
+        display: flex;
+        justify-content: center;
+    }}
+    .panel-grid {{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 24px;
+        width: 90vw;
+        max-width: 760px;
+    }}
+    .panel-cell {{
+        border-radius: 36px;
+        font-size: 2em;
+        font-weight: 700;
+        color: #fff;
+        padding: 28px 0 20px 0;
+        text-align: center;
+        box-shadow: 0 4px 28px #0006;
+        min-width: 0;
+        word-break: break-word;
+    }}
+    .cell-home {{ background: #0525c5; }}
+    .cell-away {{ background: #a61616; }}
+    @media (max-width: 700px) {{
+        .panel-grid {{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 98vw;
+        }}
+        .panel-cell {{
+            font-size: 1.1em;
+            padding: 18px 0 14px 0;
+        }}
+    }}
+    </style>
+    <div class="fixed-2x2-panel">
+      <div class="panel-grid">
+        <div class="panel-cell cell-home">
+            Home Win Probability:<br>{home_win_prob*100:.2f}%
+        </div>
+        <div class="panel-cell cell-away">
+            Away Win Probability:<br>{away_win_prob*100:.2f}%
+        </div>
+        <div class="panel-cell cell-home">
+            Home Odds: {home_odds}
+        </div>
+        <div class="panel-cell cell-away">
+            Away Odds: {away_odds}
+        </div>
+      </div>
+    </div>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
 
-card_home_odds = f'<div style="{card_style}; \
-background-color:darkblue; \
-">Home Odds: {home_odds}</div>'
-card_away_odds = f'<div style="{card_style}; \
-background-color:darkred; \
-">Away Odds: {away_odds}</div>'
 
-st.markdown(
-    f"""
-    <table style="width:100%; border-collapse:collapse; border:none;">
-      <tr>
-        <td style="vertical-align:top; border:none; width:50%;">{card_home_odds}</td>
-        <td style="vertical-align:top; border:none; width:50%;">{card_away_odds}</td>
-      </tr>
-    </table>
-    """,
-    unsafe_allow_html=True,
-)
