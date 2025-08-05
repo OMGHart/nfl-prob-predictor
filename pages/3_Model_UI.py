@@ -537,7 +537,7 @@ st.markdown(
         grid-template-rows: 1fr 1fr;
         gap: 10px;
         width: 190vw;
-        # height: 1vh;
+        height: 10px;
         max-width: 600px;
 
     }}
@@ -546,11 +546,12 @@ st.markdown(
         font-size: 1em;
         font-weight: 500;
         color: #fff;
-        padding: 8px 0 0px 0;
+        padding: 6px 0 6px 0;
         text-align: center;
         box-shadow: 0 4px 28px #0006;
         min-width: 0;
         word-break: break-word;
+        height: 10;
     }}
     .cell-home {{ background: #0525c5; }}
     .cell-away {{ background: #a61616; }}
@@ -560,11 +561,12 @@ st.markdown(
             flex-direction: column;
             gap: 12px;
             width: 98vw;
-            # height: 10vh;
+            height: 10vh;
         }}
         .panel-cell {{
             font-size: 1.1em;
             padding: 18px 0 14px 0;
+            height: 100px;
         }}
     }}
     </style>
