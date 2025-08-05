@@ -83,43 +83,13 @@ home_pos = st.radio(
 
 
 
-# score_differential = st.slider("Score Differential", 30, 
-#     -30, 
-#     key="score_differential")
-
-st.markdown("""
-    <style>
-    .slider-container {
-    margin: 0 auto;
-    padding-left: 12vw;
-    padding-right: 12vw;
-}
-    @media (max-width: 700px) {
-        .slider-container {
-            padding-left: 5vw;
-            padding-right: 5vw;
-        }
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-st.markdown('<div class="slider-container">', unsafe_allow_html=True)
-score_differential = st.slider("Score Differential", -30, 30, 0)
-st.markdown('</div>', unsafe_allow_html=True)
+score_differential = st.slider("Score Differential", 30, 
+    -30, 
+    key="score_differential")
 
 
 
 score_differential = -score_differential
-
-# with st.container():
-#     st.subheader("Game State")
-#     possession = st.radio("Possession", ["Home", "Away"])
-#     score_diff = st.slider("Score Differential (Home - Away)", -30, 30, 0)
-#     col1, col2, col3 = st.columns([1, 2, 1])
-#     with col1:
-#         st.markdown("Home Team Winning", unsafe_allow_html=True)
-#     with col3:
-#         st.markdown("Away Team Winning", unsafe_allow_html=True)
 
 
 label_html_left = (
@@ -163,29 +133,29 @@ st.subheader("Field Position")
 
 yardline = st.slider("Possession Team Distance From Score (Yards)", 0, 100, key="yardline")
 
-# st.markdown('<span style="color:lightgreen;">⬆ Goal Line</span>', unsafe_allow_html=True)
+# st.markdown('<span style="color:48FF6A;">⬆ Goal Line</span>', unsafe_allow_html=True)
 
 # st.markdown(
 #         """
-#         <div style="text-align:left; font-size:1.0em; color:lightgreen">
+#         <div style="text-align:left; font-size:1.0em; color:48FF6A">
 #          <span style="border:2px solid #48FF6A; padding:4px 18px; border-radius:8px;">GOAL LINE</span>
 #         </div>
 #         """, unsafe_allow_html=True
 #     )
 
 st.markdown(
-    ' <div style="text-align:left; font-size:1.0em; color:lightgreen">⬆️   <span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
+    ' <div style="text-align:left; font-size:1.0em; color:48FF6A">⬆️   <span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
     'padding:6px 18px; font-size:1em; color:#48FF6A; '
     'white-space:nowrap;">Goal Line</span>',
     unsafe_allow_html=True
 )
 # col1, col2, col3 = st.columns([1, 2, 1])
 # with col1:
-#     st.markdown('<span style="color:lightgreen;">⬆️ Goal Line</span>', unsafe_allow_html=True)
+#     st.markdown('<span style="color:48FF6A;">⬆️ Goal Line</span>', unsafe_allow_html=True)
 # with col2:
 #     st.markdown("<center><span style='color:gray;'></span></center>", unsafe_allow_html=True)
 # with col3:
-#     st.markdown('<span style="color:lightgreen; float:right;">Away Team Favored</span>', unsafe_allow_html=True)
+#     st.markdown('<span style="color:48FF6A; float:right;">Away Team Favored</span>', unsafe_allow_html=True)
 
 st.divider()
 
@@ -206,6 +176,7 @@ home_spread = st.slider("",min_value = -21.0,
     max_value = 21.0, 
     step = .5,
 format =  '%.1f', key="home_spread")
+
 # col1, col2, col3 = st.columns([2, 8, 2])
 # with col1:
 #     st.markdown(
@@ -223,8 +194,8 @@ format =  '%.1f', key="home_spread")
 #         'white-space:nowrap;">Away Team Favored</span>',
 #         unsafe_allow_html=True
     # )
-# After your slider
 
+# OMG this is so annoying.
 
 label_html_left = (
     '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:12px; '
@@ -281,7 +252,7 @@ X_input['yardline_100_home'] = X_input.apply(lambda X:(100-X['yardline_100_home'
 
 # X_input['time_weight'] = .5
 
-#Convert probability to American odds.
+# Convert probability to American odds.
 def prob_to_odds(prob):
     if prob > 0.5:
         return round(-prob / (1 - prob) * 100)
@@ -322,224 +293,7 @@ away_win_prob = 1-home_win_prob
 away_odds = prob_to_market_odds(away_win_prob)
 
 
-
-
-# col1, col2 = st.columns(2)
-
-# with col1:
-#     st.success(f'Home Win Probability: {home_prob*100:.2f}%')
-#     st.success(f'Home Odds: {home_odds}')
-
-# with col2:
-#     st.success(f'Away Win Probability:  {away_prob*100:.2f}%')
-#     st.success(f'Away Odds: {away_odds}')
-
-# st.markdown("&nbsp;", unsafe_allow_html=True)
-
-
-# if st.button("🔄 Reset to Default"):
-#     st.session_state['reset_triggered'] = True
-#     st.rerun()
-
-
-# Define your card style as a Python variable
-# card_style = (
-#     "background-color:#1e472d;"      # Change this hex to any color you want!
-#     "padding:32px 20px;"
-#     "border-radius:20px;"
-#     "margin-bottom:16px;"
-#     "color:white;"
-#     "font-size:1em;"
-#     "font-family:sans-serif;"
-#     "text-align:center;"
-# )
-
-# # Render cards using columns
-# col1, col2 = st.columns(2)
-# with col1:
-#     st.markdown(
-#         f'<div style="{card_style}">Home Win Probability: {home_win_prob*100:.2f}%</div>',
-#         unsafe_allow_html=True
-#     )
-# with col2:
-#     st.markdown(
-#         f'<div style="{card_style}">Away Win Probability: {away_win_prob*100:.2f}%</div>',
-#         unsafe_allow_html=True
-#     )
-
-# col3, col4 = st.columns(2)
-# with col3:
-#     st.markdown(
-#         f'<div style="{card_style}">Home Odds: {home_odds}</div>',
-#         unsafe_allow_html=True
-#     )
-# with col4:
-#     st.markdown(
-#         f'<div style="{card_style}">Away Odds: {away_odds}</div>',
-#         unsafe_allow_html=True
-#     )
-
-# card_style = (
-#     # "background-color:#244533;"
-#     "padding:28px 12px;"
-#     "border-radius:20px;"
-#     "margin:8px 0px;"
-#     "color:white;"
-#     # "font-size:1.5em;"
-#     "font-family:sans-serif;"
-#     "text-align:center;"
-#     "width:96%;"  # slight shrink to prevent overflow on small screens
-# )
-
-# card_home = f'<div style="{card_style};\
-#     background-color:darkblue; \
-#     font-size:1.5em; \
-#     ">Home Win Probability: {home_win_prob*100:.2f}%</div>'
-# card_away = f'<div style="{card_style}; \
-#     background-color:darkred; \
-#     font-size:1.5em; \
-#     ">Away Win Probability: {away_win_prob*100:.2f}%</div>'
-
-# st.markdown(
-#     f"""
-#     <table style="width:100%; border-collapse:collapse; border:none;">
-#       <tr>
-#         <td style="vertical-align:top; border:none; width:50%;">{card_home}</td>
-#         <td style="vertical-align:top; border:none; width:50%;">{card_away}</td>
-#       </tr>
-#     </table>
-#     """,
-#     unsafe_allow_html=True,
-# )
-
-# card_home_odds = f'<div style="{card_style}; \
-# background-color:darkblue; \
-# ">Home Odds: {home_odds}</div>'
-# card_away_odds = f'<div style="{card_style}; \
-# background-color:darkred; \
-# ">Away Odds: {away_odds}</div>'
-
-# st.markdown(
-#     f"""
-#     <table style="width:100%; border-collapse:collapse; border:none;">
-#       <tr>
-#         <td style="vertical-align:top; border:none; width:50%;">{card_home_odds}</td>
-#         <td style="vertical-align:top; border:none; width:50%;">{card_away_odds}</td>
-#       </tr>
-#     </table>
-#     """,
-#     unsafe_allow_html=True,
-# )
-
-
-# st.markdown(
-#     f"""
-#     <style>
-#     .floating-panel {{
-#         position: fixed;
-#         left: 0;
-#         bottom: 0;
-#         width: 100vw;
-#         background: rgba(20,30,40,0.98);
-#         color: #fff;
-#         padding: 20px 0 10px 0;
-#         box-shadow: 0 -2px 24px 0 #0007;
-#         z-index: 9999;
-#         display: flex;
-#         justify-content: center;
-#         gap: 60px;
-#     }}
-#     .floating-panel > div {{
-#         background: #244533;
-#         border-radius: 18px;
-#         padding: 16px 38px;
-#         font-size: 1.4em;
-#         font-weight: 700;
-#         box-shadow: 0 2px 16px #0003;
-#     }}
-#     </style>
-#     <div class="floating-panel">
-#         <div>Home Win: {home_win_prob*100:.2f}%</div>
-#         <div>Away Win: {away_win_prob*100:.2f}%</div>
-#         <div>Home Odds: {home_odds}</div>
-#         <div>Away Odds: {away_odds}</div>
-#     </div>
-#     """, unsafe_allow_html=True
-# )
-
-
-### WORKING
-
-# st.markdown(
-#     f"""
-#     <style>
-#     .fixed-2x2-panel {{
-#         position: fixed;
-#         left: 0;
-#         bottom: 0;
-#         width: 100vw;
-#         background: rgba(20,30,40,0.97);
-#         z-index: 9999;
-#         padding: 24px 0 12px 0;
-#         display: flex;
-#         justify-content: center;
-#     }}
-#     .panel-grid {{
-#         display: grid;
-#         grid-template-columns: 1fr 1fr;
-#         grid-template-rows: 1fr 1fr;
-#         gap: 24px;
-#         width: 90vw;
-#         min-width: 400px;
-#         max-width: 760px;
-#     }}
-#     .panel-cell {{
-#         border-radius: 36px;
-#         font-size: 1em;
-#         font-weight: t00;
-#         color: #fff;
-#         padding: 28px 0 20px 0;
-#         text-align: center;
-#         box-shadow: 0 4px 28px #0006;
-#         min-width: 0;
-#         word-break: break-word;
-#     }}
-#     .cell-home {{ background: #0525c5; }}
-#     .cell-away {{ background: #a61616; }}
-#     @media (max-width: 400px) {{
-#         .panel-grid {{
-#             display: flex;
-#             flex-direction: column;
-#             gap: 12px;
-#             width: 98vw;
-#         }}
-#         .panel-cell {{
-#             font-size: 1em;
-#             padding: 18px 0 14px 0;
-#         }}
-#     }}
-#     </style>
-#     <div class="fixed-2x2-panel">
-#       <div class="panel-grid">
-#         <div class="panel-cell cell-home">
-#             Home Win Probability:<br>{home_win_prob*100:.2f}%
-#         </div>
-#         <div class="panel-cell cell-away">
-#             Away Win Probability:<br>{away_win_prob*100:.2f}%
-#         </div>
-#         <div class="panel-cell cell-home">
-#             Home Odds: {home_odds}
-#         </div>
-#         <div class="panel-cell cell-away">
-#             Away Odds: {away_odds}
-#         </div>
-#       </div>
-#     </div>
-#     """,
-#     unsafe_allow_html=True
-# )
-
-###NOT
+# Floating 2x2 bottom panel.
 st.markdown(
     f"""
     <style>
