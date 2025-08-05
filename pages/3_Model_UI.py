@@ -541,7 +541,7 @@ st.markdown(
         gap: 10px;
         width: 190vw;
         height: 10px;
-        max-width: 600px;
+        max-width: 500px;
 
     }}
     .panel-cell {{
@@ -549,7 +549,7 @@ st.markdown(
         font-size: 1em;
         font-weight: 400;
         color: #fff;
-        padding: 6px 0 6px 0;
+        padding: 2px 0 2px 0;
         text-align: center;
         box-shadow: 0 4px 28px #0006;
         min-width: 0;
