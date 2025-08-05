@@ -83,28 +83,33 @@ home_pos = st.radio(
 
 
 
-score_differential = st.slider("Score Differential", 30, 
-    -30, 
-    key="score_differential")
+# score_differential = st.slider("Score Differential", 30, 
+#     -30, 
+#     key="score_differential")
 
-# This creates three columns, and uses only the center one.
 st.markdown("""
     <style>
-    /* Try to override slider width */
-    div[data-testid="stSlider"] > div {
-        width: 500px !important;
-        margin-left: auto;
-        margin-right: auto;
+    .slider-container {
+    margin: 0 auto;
+    padding-left: 12vw;
+    padding-right: 12vw;
+}
+    @media (max-width: 700px) {
+        .slider-container {
+            padding-left: 5vw;
+            padding-right: 5vw;
+        }
     }
     </style>
-    """, unsafe_allow_html=True)
-st.slider("Score Differential", -30, 30, 0)
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="slider-container">', unsafe_allow_html=True)
+score_differential = st.slider("Score Differential", -30, 30, 0)
+st.markdown('</div>', unsafe_allow_html=True)
 
 
 
-
-
-# score_differential = -score_differential
+score_differential = -score_differential
 
 # with st.container():
 #     st.subheader("Game State")
