@@ -527,10 +527,10 @@ st.markdown(
         left: 0;
         bottom: 0;
         width: 100vw;
-        height: 19vh;
+        height: 15vh;
         background: rgba(20,30,40,0.97);
         z-index: 9999;
-        padding: 24px 0 12px 0;
+        padding: 6px 0 24px 0;
         display: flex;
         justify-content: center;
     }}
