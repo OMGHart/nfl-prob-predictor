@@ -65,6 +65,10 @@ if st.session_state.get("reset_triggered", False):
 # ydstogo = st.slider("First Down Yards To go", 0, 30, key="ydstogo")
 # home_spread = st.slider("Home Team Pregame Spread", -14, 14, key="home_spread")
 
+if st.button("🔄 Reset to Default"):
+    st.session_state['reset_triggered'] = True
+    st.rerun()
+
 st.subheader("Game State")
 
 home_pos = st.radio(
@@ -323,9 +327,9 @@ st.divider()
 # st.markdown("&nbsp;", unsafe_allow_html=True)
 
 
-if st.button("🔄 Reset to Default"):
-    st.session_state['reset_triggered'] = True
-    st.rerun()
+# if st.button("🔄 Reset to Default"):
+#     st.session_state['reset_triggered'] = True
+#     st.rerun()
 
 
 # Define your card style as a Python variable
@@ -453,6 +457,79 @@ if st.button("🔄 Reset to Default"):
 #     """, unsafe_allow_html=True
 # )
 
+
+### WORKING
+
+# st.markdown(
+#     f"""
+#     <style>
+#     .fixed-2x2-panel {{
+#         position: fixed;
+#         left: 0;
+#         bottom: 0;
+#         width: 100vw;
+#         background: rgba(20,30,40,0.97);
+#         z-index: 9999;
+#         padding: 24px 0 12px 0;
+#         display: flex;
+#         justify-content: center;
+#     }}
+#     .panel-grid {{
+#         display: grid;
+#         grid-template-columns: 1fr 1fr;
+#         grid-template-rows: 1fr 1fr;
+#         gap: 24px;
+#         width: 90vw;
+#         min-width: 400px;
+#         max-width: 760px;
+#     }}
+#     .panel-cell {{
+#         border-radius: 36px;
+#         font-size: 1em;
+#         font-weight: t00;
+#         color: #fff;
+#         padding: 28px 0 20px 0;
+#         text-align: center;
+#         box-shadow: 0 4px 28px #0006;
+#         min-width: 0;
+#         word-break: break-word;
+#     }}
+#     .cell-home {{ background: #0525c5; }}
+#     .cell-away {{ background: #a61616; }}
+#     @media (max-width: 400px) {{
+#         .panel-grid {{
+#             display: flex;
+#             flex-direction: column;
+#             gap: 12px;
+#             width: 98vw;
+#         }}
+#         .panel-cell {{
+#             font-size: 1em;
+#             padding: 18px 0 14px 0;
+#         }}
+#     }}
+#     </style>
+#     <div class="fixed-2x2-panel">
+#       <div class="panel-grid">
+#         <div class="panel-cell cell-home">
+#             Home Win Probability:<br>{home_win_prob*100:.2f}%
+#         </div>
+#         <div class="panel-cell cell-away">
+#             Away Win Probability:<br>{away_win_prob*100:.2f}%
+#         </div>
+#         <div class="panel-cell cell-home">
+#             Home Odds: {home_odds}
+#         </div>
+#         <div class="panel-cell cell-away">
+#             Away Odds: {away_odds}
+#         </div>
+#       </div>
+#     </div>
+#     """,
+#     unsafe_allow_html=True
+# )
+
+###NOT
 st.markdown(
     f"""
     <style>
@@ -461,9 +538,10 @@ st.markdown(
         left: 0;
         bottom: 0;
         width: 100vw;
+        height: 25vh;
         background: rgba(20,30,40,0.97);
         z-index: 9999;
-        padding: 24px 0 12px 0;
+        padding: 18px 0 12px 0;
         display: flex;
         justify-content: center;
     }}
@@ -473,14 +551,15 @@ st.markdown(
         grid-template-rows: 1fr 1fr;
         gap: 24px;
         width: 90vw;
+        height: 20hw;
         max-width: 760px;
     }}
     .panel-cell {{
-        border-radius: 36px;
-        font-size: 2em;
-        font-weight: 700;
+        border-radius: 24px;
+        font-size: 1em;
+        font-weight: 500;
         color: #fff;
-        padding: 28px 0 20px 0;
+        padding: 20px 0 20px 0;
         text-align: center;
         box-shadow: 0 4px 28px #0006;
         min-width: 0;
@@ -488,7 +567,7 @@ st.markdown(
     }}
     .cell-home {{ background: #0525c5; }}
     .cell-away {{ background: #a61616; }}
-    @media (max-width: 700px) {{
+    @media (max-width: 400px) {{
         .panel-grid {{
             display: flex;
             flex-direction: column;
@@ -520,5 +599,4 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 
