@@ -144,12 +144,6 @@ yardline = st.slider("Possession Team Distance From Score (Yards)", 0, 100, key=
 #         """, unsafe_allow_html=True
 #     )
 
-st.markdown(
-    ' <div style="text-align:left; font-size:1.0em; color:48FF6A">⬆️   <span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
-    'padding:6px 18px; font-size:1em; color:#48FF6A; '
-    'white-space:nowrap;">Goal Line</span>',
-    unsafe_allow_html=True
-)
 # col1, col2, col3 = st.columns([1, 2, 1])
 # with col1:
 #     st.markdown('<span style="color:48FF6A;">⬆️ Goal Line</span>', unsafe_allow_html=True)
@@ -171,6 +165,7 @@ down = st.radio(
 ydstogo = st.slider("First Down Distance (Yards)", 0, 30, key="ydstogo")
 
 st.divider()
+# st.write("---")
 
 st.subheader("Home Team Pregame Spread")
 home_spread = st.slider(" ",min_value = -21.0, 
@@ -298,8 +293,29 @@ away_odds = prob_to_market_odds(away_win_prob)
 st.markdown(
     f"""
     <style>
-    .main .block-container {{
-        padding-bottom: 80px;
+    .main, .block-container {{
+        padding-bottom: 150px;
+    }}
+    body, .main, .block-container, .sidebar, .sidebar-content, .stButton > button {{
+        background-color: #141e28;
+        color: white;
+    }}
+   
+    .stButton > button {{
+        border: 1px solid #444;
+        border-radius: 1tpx solid #444;
+        font-color:white;
+    }}
+    .stSlider label,  .stRadio label, .stRadio div {{
+        color:white;
+    }}
+
+    .st-c7 {{
+    height: .5rem;
+    }}
+    .st-emotion-cache-1dj3ksd {{
+       height: 2rem;
+       width: 2rem;
     }}
     .fixed-2x2-panel {{
         position: fixed;
@@ -308,7 +324,7 @@ st.markdown(
         width: 100vw;
         height: 150px;
         background: rgba(20,30,40,0.97);
-        z-index: 9999;
+        z-index: 9999; 
         padding: 2px 0 24px 0;
         display: flex;
         justify-content: center;
