@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from xgboost import XGBClassifier, XGBRegressor
 from scipy.special import logit, expit
+from utils import logit_func, expit_func
 
 st.title("Hart's NFL Win Probability Predictor")
 
