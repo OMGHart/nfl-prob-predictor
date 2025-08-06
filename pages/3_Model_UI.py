@@ -305,7 +305,7 @@ st.markdown(
         left: 0;
         bottom: 0;
         width: 100vw;
-        height: 120px;
+        height: 150px;
         background: rgba(20,30,40,0.97);
         z-index: 9999;
         padding: 2px 0 24px 0;
