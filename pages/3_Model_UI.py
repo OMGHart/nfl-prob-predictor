@@ -134,15 +134,18 @@ st.subheader("Field Position")
 
 yardline = st.slider("Possession Team Distance From Score (Yards)", 0, 100, key="yardline")
 
+if home_pos == 0:
+    yardline = 100 - yardline
+
 # st.markdown('<span style="color:48FF6A;">⬆ Goal Line</span>', unsafe_allow_html=True)
 
-# st.markdown(
-#         """
-#         <div style="text-align:left; font-size:1.0em; color:48FF6A">
-#          <span style="border:2px solid #48FF6A; padding:4px 18px; border-radius:8px;">GOAL LINE</span>
-#         </div>
-#         """, unsafe_allow_html=True
-#     )
+st.markdown(
+        """
+        <div style="text-align:left; font-size:1.0em; color:48FF6A !important">
+         <span style="border:2px solid #48FF6A; padding:4px 18px; border-radius:8px;">⬆ Goal Line</span>
+        </div>
+        """, unsafe_allow_html=True
+    )
 
 # col1, col2, col3 = st.columns([1, 2, 1])
 # with col1:

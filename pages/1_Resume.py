@@ -21,5 +21,5 @@ st.markdown("""
 2024-present 
 
 **Reporting Lead** - *AT&T* 
-2014-2024
+2014-2024           
 """)
