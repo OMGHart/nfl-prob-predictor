@@ -172,7 +172,7 @@ ydstogo = st.slider("First Down Distance (Yards)", 0, 30, key="ydstogo")
 st.divider()
 
 st.subheader("Home Team Pregame Spread")
-home_spread = st.slider("",min_value = -21.0, 
+home_spread = st.slider(" ",min_value = -21.0, 
     max_value = 21.0, 
     step = .5,
 format =  '%.1f', key="home_spread")
@@ -287,7 +287,7 @@ def prob_to_market_odds(prob):
         return f'({rounded_odds})'
 
 
-home_win_prob = expit(model.predict(X_input))[0]
+home_win_prob = model.predict(X_input)[0]
 home_odds = prob_to_market_odds(home_win_prob)
 away_win_prob = 1-home_win_prob
 away_odds = prob_to_market_odds(away_win_prob)
@@ -305,7 +305,7 @@ st.markdown(
         left: 0;
         bottom: 0;
         width: 100vw;
-        height: 110px;
+        height: 120px;
         background: rgba(20,30,40,0.97);
         z-index: 9999;
         padding: 2px 0 24px 0;
@@ -316,23 +316,26 @@ st.markdown(
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
-        gap: 10px;
-        width: 190vw;
-        height: 10px;
-        max-width: 500px;
+        gap: 5px;
+        width: 100%;
+        height: 100px; ### cell vertical spacing?
+        max-width: 500px;  
 
     }}
     .panel-cell {{
         border-radius: 24px;
-        font-size: .9em;
-        font-weight: 600;
+        font-size: 1em;  ### font size
+        font-weight: 500;
         color: #fff;
-        padding: 2px 0 2px 0;
+        padding: 10px 0; # 2px 0;
         text-align: center;
         box-shadow: 0 4px 28px #0006;
         min-width: 0;
         word-break: break-word;
-        height: 10;
+        height: 45px;  ### cell height
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }}
     .cell-home {{ background: #0525c5; }}
     .cell-away {{ background: #a61616; }}
@@ -342,12 +345,12 @@ st.markdown(
             flex-direction: column;
             gap: 12px;
             width: 98vw;
-            height: 10vh;
+            height: auto;
         }}
         .panel-cell {{
             font-size: 1.1em;
             padding: 18px 0 14px 0;
-            height: 100px;
+            height: 40px;
         }}
     }}
     </style>
