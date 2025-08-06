@@ -314,8 +314,8 @@ st.markdown(
     height: .5rem;
     }}
     .st-emotion-cache-1dj3ksd {{
-       height: 2rem;
-       width: 2rem;
+       height: 1.5rem;
+       width: 1.5rem;
     }}
     .fixed-2x2-panel {{
         position: fixed;
