@@ -25,12 +25,7 @@ feature_columns = ['yardline_100_home',
                    'time_weight'
                   ]
 
-
-
-
-
 DEFAULTS = {
-
     "qtr": 1,
     "clock": 15,
     "yardline": 50,
@@ -41,9 +36,9 @@ DEFAULTS = {
     "down": 1
 }
 
-for k, v in DEFAULTS.items():
-    if k not in st.session_state:
-        st.session_state[k] = v
+for key, value in DEFAULTS.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
 
 
 if st.session_state.get("reset_triggered", False):
@@ -99,7 +94,7 @@ label_html_left = (
     'Home Team Winning</span>'
 )
 label_html_right = (
-    '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
+    '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px;' 
     'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
     'Away Team Winning</span>'
 )
@@ -139,13 +134,28 @@ yardline = st.slider("Possession Team Distance From Score (Yards)", 0, 100, key=
 
 # st.markdown('<span style="color:48FF6A;">⬆ Goal Line</span>', unsafe_allow_html=True)
 
+# st.markdown(
+#         """
+#         <div style="text-align:left; font-size:1.0em; color:48FF6A !important">
+#          <span style="border:2px solid #48FF6A; padding:4px 18px; border-radius:8px;">⬆ Goal Line</span>
+#         </div>
+#         """, unsafe_allow_html=True
+#     )
+
+# Set goal line marker.
 st.markdown(
         """
         <div style="text-align:left; font-size:1.0em; color:48FF6A !important">
-         <span style="border:2px solid #48FF6A; padding:4px 18px; border-radius:8px;">⬆ Goal Line</span>
+        <span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; 
+        padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">⬆ Goal Line
+        </span>
         </div>
         """, unsafe_allow_html=True
     )
+
+# "display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
+#     'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
+#     'Away Team Winning
 
 # col1, col2, col3 = st.columns([1, 2, 1])
 # with col1:
@@ -251,14 +261,7 @@ X_input['yardline_100_home'] = X_input.apply(lambda X:(100-X['yardline_100_home'
 
 # X_input['time_weight'] = .5
 
-# Convert probability to American odds.
-def prob_to_odds(prob):
-    if prob > 0.5:
-        return round(-prob / (1 - prob) * 100)
-    else:
-        return round((1 - prob) / prob * 100)
-
-
+# Convert probability to market probability.
 def prob_to_market_prob(prob):
     p1 = prob
     p2 = 1-p1
@@ -268,6 +271,13 @@ def prob_to_market_prob(prob):
     vig_p1 = min((p1 / fair_total) * overround, 0.99999)
     vig_p2 = overround - vig_p1
     return vig_p1, vig_p2
+
+# Convert probability to American odds.
+def prob_to_odds(prob):
+    if prob > 0.5:
+        return round(-prob / (1 - prob) * 100)
+    else:
+        return round((1 - prob) / prob * 100)
 
 # Combine functions.
 def prob_to_market_odds(prob):
@@ -285,41 +295,53 @@ def prob_to_market_odds(prob):
     else:
         return f'({rounded_odds})'
 
-
+# Instantiate variables.
 home_win_prob = model.predict(X_input)[0]
 home_odds = prob_to_market_odds(home_win_prob)
 away_win_prob = 1-home_win_prob
 away_odds = prob_to_market_odds(away_win_prob)
 
 
-# Floating 2x2 bottom panel.
+# CSS styling.
 st.markdown(
     f"""
     <style>
+    
+    /* Add padding at bottom */
     .main, .block-container {{
         padding-bottom: 150px;
     }}
+
+    /* Set default colors */
     body, .main, .block-container, .sidebar, .sidebar-content, .stButton > button {{
         background-color: #141e28;
         color: white;
     }}
-   
+
+    /* Set button attributes */
     .stButton > button {{
         border: 1px solid #444;
         border-radius: 1tpx solid #444;
         font-color:white;
     }}
-    .stSlider label,  .stRadio label, .stRadio div {{
-        color:white;
+
+    /* Set radio button color */
+    .stSlider label, .stRadio label, .stRadio div {{
+        color: white;
     }}
 
+    /* Set slider width */
     .st-c7 {{
-    height: .5rem;
+        height: .5rem;
     }}
-    .st-emotion-cache-1dj3ksd {{
+
+    /* Enlarge slider buttons */
+    .st-emotion-cache-1dj3ksd {{ 
        height: 1.5rem;
        width: 1.5rem;
     }}
+
+    /* Floating panel attributes*/
     .fixed-2x2-panel {{
         position: fixed;
         left: 0;
@@ -332,19 +354,22 @@ st.markdown(
         display: flex;
         justify-content: center;
     }}
+
+    /* Grid attributes */
     .panel-grid {{
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
         gap: 5px;
         width: 100%;
-        height: 100px; ### cell vertical spacing?
+        height: 100px; 
         max-width: 500px;  
-
     }}
+
+    /* Cell attributes */
     .panel-cell {{
         border-radius: 24px;
-        font-size: 1em;  ### font size
+        font-size: 1em;  
         font-weight: 500;
         color: #fff;
         padding: 10px 0; # 2px 0;
@@ -352,27 +377,18 @@ st.markdown(
         box-shadow: 0 4px 28px #0006;
         min-width: 0;
         word-break: break-word;
-        height: 45px;  ### cell height
+        height: 45px;  
         display: flex;
         align-items: center;
         justify-content: center;
     }}
+
+    /* Set cell background colors */
     .cell-home {{ background: #0525c5; }}
     .cell-away {{ background: #a61616; }}
-    @media (max-width: 400px) {{
-        .panel-grid {{
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 98vw;
-            height: auto;
-        }}
-        .panel-cell {{
-            font-size: 1.1em;
-            padding: 18px 0 14px 0;
-            height: 40px;
-        }}
-    }}
+
+    
+    /* Add text */
     </style>
     <div class="fixed-2x2-panel">
       <div class="panel-grid">
