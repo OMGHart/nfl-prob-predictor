@@ -12,7 +12,7 @@ model = joblib.load('ui_model.pkl')
 
 
 st.markdown("""
-This tool predicts win NFL win probability.
+    This tool uses a machine learning model trained on over 20 years of NFL data to estimate win probabilities in real time. Enter the current game state- possession, score, time, time outs remaining, field position, down and distance, and pregame spread to see the model’s prediction alongside market-implied odds.
 """)
 
 
@@ -22,7 +22,9 @@ feature_columns = ['yardline_100_home',
                    'home_pos', 
                    'home_score_differential', 
                    'home_spread_line', 
-                   'time_weight'
+                   'time_weight',
+                   'home_timeouts_remaining',
+                   'away_timeouts_remaining',
                   ]
 
 DEFAULTS = {
@@ -33,7 +35,9 @@ DEFAULTS = {
     "score_differential": 0,
     "home_spread": 0,
     "ydstogo": 10,
-    "down": 1
+    "down": 1,
+    "home_timeouts": 3,
+    "away_timeouts": 3
 }
 
 for key, value in DEFAULTS.items():
@@ -44,13 +48,14 @@ for key, value in DEFAULTS.items():
 if st.session_state.get("reset_triggered", False):
     st.session_state['qtr'] = 1
     st.session_state['score_differential'] = 0
-    st.session_state['qtr'] = 1
     st.session_state['clock'] = 15
     st.session_state['yardline'] = 50
     st.session_state['down'] = 1
     st.session_state['ydstogo'] = 10
     st.session_state['home_spread'] = 0
     st.session_state['reset_triggered'] = False
+    st.session_state['home_timeouts'] = 3
+    st.session_state['away_timeouts'] = 3
     st.rerun()
 
 
@@ -122,6 +127,28 @@ qtr = st.radio(
     horizontal = True,
     key="qtr")
 clock = st.slider("Minutes Remaining", 0, 15, key="clock")
+
+
+col1, col2, col3 = st.columns([1, 1, 1])
+with col1:
+    home_timeouts = st.radio(
+        "Home Timeouts",
+        options=[0, 1, 2, 3],
+        horizontal=True,
+        key="home_timeouts"
+    )
+
+with col3:
+    away_timeouts = st.radio(
+        "Away Timeouts",
+        options=[0, 1, 2, 3],
+        horizontal=True,
+        key="away_timeouts" 
+    ) 
+
+
+
+
 
 st.divider()
 
@@ -239,7 +266,9 @@ user_inputs = {
     'home_pos': home_pos,
     'home_score_differential': score_differential,
     'home_spread_line': home_spread, 
-    'time_weight':time_weight
+    'time_weight':time_weight,
+    'home_timeouts_remaining':home_timeouts,
+    'away_timeouts_remaining':away_timeouts,
  }
 
 # st.write("Quarter Selected:", qtr)

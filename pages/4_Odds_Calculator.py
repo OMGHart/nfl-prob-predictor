@@ -4,6 +4,9 @@ import pandas as pd
 
 
 st.title("Odds Calculator")
+st.markdown("""
+    Use this tool to convert between probability and sportsbook odds, with or without a the sportsbook's built-in margin (vig).
+            """)
 
 prob = st.number_input("Probability", 
                        value = .5,
@@ -46,17 +49,17 @@ def prob_to_market_odds(prob, hold):
     inflated_prob = prob_to_market_prob(prob, hold)
     market_odds = prob_to_odds(inflated_prob)
     rounded_odds = int(round(market_odds, -(len(str(abs(market_odds)))-2)))
-    return rounded_odds
-    # if rounded_odds > 100:
-    #     rounded_odds = min(rounded_odds, 5000)
-    # if rounded_odds < 100:
-    #     rounded_odds = max(rounded_odds, -100000)
-    # if abs(rounded_odds) == 100:
-    #     return f'(EVEN)'
-    # elif rounded_odds > 100:
-    #     return f'(+{rounded_odds})'
-    # else:
-    #     return f'({rounded_odds})'
+    # return rounded_odds
+    if rounded_odds > 100:
+        rounded_odds = min(rounded_odds, 5000)
+    if rounded_odds < 100:
+        rounded_odds = max(rounded_odds, -100000)
+    if abs(rounded_odds) == 100:
+        return f'(EVEN)'
+    elif rounded_odds > 100:
+        return f'(+{rounded_odds})'
+    else:
+        return f'({rounded_odds})'
 
 
 # home_win_prob = model.predict(X_input)[0]

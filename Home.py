@@ -3,14 +3,15 @@ import streamlit as st
 
 st.title("Welcome to my data science portfolio!")
 st.markdown("""
-Hi! I'm Hart. Go Panthers.
+    Hi! I'm Hart. 
+                
+    I'm a master's candidate in Data Science at Eastern University. My professional interests include machine learning model deployment and automation pipelines.
+                
+    Outside of data science, I enjoy football, motorcycles, aviation, and locally brewed beverages.
 
-I like football, motorcycles, aviation, and locally brewed beverages.
+    """)
 
-""")
-
-st.image("images/hart.png", caption="2015 NFC Championship 1/24/16")
-
+st.image("images/hart.png", caption="2015 NFC Championship (Jan. 24, 2016)")
 
 
 
