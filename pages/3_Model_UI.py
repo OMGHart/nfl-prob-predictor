@@ -6,6 +6,15 @@ from xgboost import XGBClassifier, XGBRegressor
 from scipy.special import logit, expit
 from utils import logit_func, expit_func
 
+import streamlit as st
+
+st.set_page_config(
+    page_title="NFL Win Probability",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+
 st.title("Hart's NFL Win Probability Predictor")
 
 model = joblib.load('ui_model.pkl')
