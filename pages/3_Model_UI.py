@@ -8,21 +8,13 @@ from utils import logit_func, expit_func
 
 import streamlit as st
 
-import streamlit as st
+# st.set_page_config(layout="wide")
 
-st.set_page_config(layout="wide")
-
-hide_sidebar_style = """
-    <style>
-        [data-testid="stSidebar"][aria-expanded="true"]{
-            display: none;
-        }
-        [data-testid="stSidebar"][aria-expanded="false"]{
-            display: none;
-        }
-    </style>
-"""
-st.markdown(hide_sidebar_style, unsafe_allow_html=True)
+st.set_page_config(
+    page_title="NFL Win Probability",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 
 
 
