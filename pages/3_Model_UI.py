@@ -12,13 +12,17 @@ import streamlit as st
 
 st.set_page_config(layout="wide")
 
-import streamlit as st
-st.set_page_config(
-    page_title="NFL Win Probability",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-)
-
+hide_sidebar_style = """
+    <style>
+        [data-testid="stSidebar"][aria-expanded="true"]{
+            display: none;
+        }
+        [data-testid="stSidebar"][aria-expanded="false"]{
+            display: none;
+        }
+    </style>
+"""
+st.markdown(hide_sidebar_style, unsafe_allow_html=True)
 
 
 
@@ -31,7 +35,7 @@ st.markdown("""
     This tool uses a machine learning model trained on over 20 years of NFL data to estimate win probabilities in real time. Enter the current game state- possession, score, time, time outs remaining, field position, down and distance, and pregame spread to see the model’s prediction alongside market-implied odds.
 """)
 
-
+ 
 feature_columns = ['yardline_100_home', 
                    'down', 
                    'ydstogo', 
@@ -111,12 +115,12 @@ score_differential = -score_differential
 
 label_html_left = (
     '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
-    'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
+    'padding:4px 12px; font-size:1em; color:#48FF6A;">'
     'Home Team Winning</span>'
 )
 label_html_right = (
     '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px;' 
-    'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
+    'padding:4px 12px; font-size:1em; color:#48FF6A;  ">'
     'Away Team Winning</span>'
 )
 
@@ -188,9 +192,9 @@ yardline = st.slider("Possession Team Distance From Score (Yards)", 0, 100, key=
 # Set goal line marker.
 st.markdown(
         """
-        <div style="text-align:left; font-size:1.0em; color:48FF6A !important">
+        <div style="text-align:left; font-size:1em;">
         <span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; 
-        padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">⬆ Goal Line
+         padding:4px 12px; color:#48FF6A;">⬆ Goal Line
         </span>
         </div>
         """, unsafe_allow_html=True
@@ -250,13 +254,13 @@ format =  '%.1f', key="home_spread")
 # OMG this is so annoying.
 
 label_html_left = (
-    '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:12px; '
-    'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
+    '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
+    'padding:4px 12px; font-size:1em; color:#48FF6A;">'
     'Home Team Favored</span>'
 )
 label_html_right = (
-    '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:12px; '
-    'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
+    '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
+    'padding:4px 12px; font-size:1em; color:#48FF6A;">'
     'Away Team Favored</span>'
 )
 
@@ -365,7 +369,7 @@ st.markdown(
 
     /* Set button attributes */
     .stButton > button {{
-        border: 1px solid #444;
+        border: 2px solid #444;
         border-radius: 1tpx solid #444;
         font-color:white;
     }}
