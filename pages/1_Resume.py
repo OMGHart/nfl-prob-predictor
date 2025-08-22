@@ -1,7 +1,7 @@
+# Streamlit Resume Page
 import streamlit as st
 
 st.title("Resume")
-
 st.header("Professional Summary")
 st.markdown("""
             Results-oriented data professional with an acute attention to detail and a passion for continuous learning.
@@ -83,14 +83,6 @@ st.divider()
 st.header("""
 Certifications
              """)
-
-# st.markdown("""
-#             ● Google Data Analytics \n
-#             ● Google Advanced Data Analytics \n
-#             ● IBM Data Science \n
-#             ● SAS Programmer
-            
-#             """)   
 
 col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
 with col1:

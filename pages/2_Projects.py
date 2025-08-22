@@ -1,3 +1,4 @@
+# Streamlit Projects Page
 import streamlit as st
 
 st.title("Hart's Portfolio")
@@ -20,7 +21,7 @@ st.write("Kaggle competition predicting real estate prices")
 st.markdown("""
 ### [Titanic Survival Predictor](https://github.com/OMGHart/titanic-survival) 
             """)
-st.write("Kaggle competition predicting whether or not passengers survived the sinking of Titanic")
+st.write("Kaggle competition predicting passenger survival on the sinking of Titanic")
 
 st.markdown("""
 ### [SpaceX Rocket Tracker](https://github.com/OMGHart/SpaceX-Dash/tree/main) 

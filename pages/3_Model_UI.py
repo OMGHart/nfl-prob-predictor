@@ -1,3 +1,4 @@
+# Streamlit Model UI Page
 import streamlit as st
 import joblib 
 import numpy as np
@@ -8,26 +9,22 @@ from utils import logit_func, expit_func
 
 import streamlit as st
 
-# st.set_page_config(layout="wide")
-
 st.set_page_config(
     page_title="NFL Win Probability",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
-
-
 st.title("Hart's NFL Win Probability Predictor")
 
 model = joblib.load('ui_model.pkl')
 
-
+# Introduction and instructions.
 st.markdown("""
     This tool uses a machine learning model trained on over 20 years of NFL data to estimate win probabilities in real time. Enter the current game state- possession, score, time, time outs remaining, field position, down and distance, and pregame spread to see the model’s prediction alongside market-implied odds.
 """)
 
- 
+# Features. 
 feature_columns = ['yardline_100_home', 
                    'down', 
                    'ydstogo', 
@@ -39,6 +36,7 @@ feature_columns = ['yardline_100_home',
                    'away_timeouts_remaining',
                   ]
 
+# Set defaults.
 DEFAULTS = {
     "qtr": 1,
     "clock": 15,
@@ -56,7 +54,7 @@ for key, value in DEFAULTS.items():
     if key not in st.session_state:
         st.session_state[key] = value
 
-
+# Reset button.
 if st.session_state.get("reset_triggered", False):
     st.session_state['qtr'] = 1
     st.session_state['score_differential'] = 0
@@ -70,20 +68,13 @@ if st.session_state.get("reset_triggered", False):
     st.session_state['away_timeouts'] = 3
     st.rerun()
 
-
-# qtr = st.slider("Quarter", 1, 4, key="qtr")
-# clock = st.slider("Clock Minutes", 0, 15, key="clock")
-# yardline = st.slider("Distance from Goal", 0, 100, key="yardline")
-# down = st.radio("Down", options=[1, 2, 3, 4], key="down")
-# ydstogo = st.slider("First Down Yards To go", 0, 30, key="ydstogo")
-# home_spread = st.slider("Home Team Pregame Spread", -14, 14, key="home_spread")
-
 if st.button("🔄 Reset to Default"):
     st.session_state['reset_triggered'] = True
     st.rerun()
 
 st.subheader("Game State")
 
+# Home possession.
 home_pos = st.radio(
     "Possession",
     options=[1, 0],
@@ -91,24 +82,20 @@ home_pos = st.radio(
     horizontal = True,
     key="home_pos"
 )
-# st.divider()
-# st.subheader("Score Differential")
 
-
-
+# Score differential.
 score_differential = st.slider("Score Differential", 30, 
     -30, 
     key="score_differential")
 
-
-
+# Reverse score differential for home/away position consistency.
 score_differential = -score_differential
 
-
+# Home/away labels.
 label_html_left = (
     '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
     'padding:4px 12px; font-size:1em; color:#48FF6A;">'
-    'Home Team Winning</span>'
+    'Home Team Winning</span>' 
 )
 label_html_right = (
     '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px;' 
@@ -118,7 +105,7 @@ label_html_right = (
 
 st.markdown(
     f"""
-    <table style="width:100%; border-collapse:collapse; border:none;">
+    <table style="width:100%; border-collapse:inherit; border:none; ">
       <tr>
         <td style="text-align:left; border:none;">{label_html_left}</td>
         <td style="text-align:right; border:none;">{label_html_right}</td>
@@ -131,6 +118,7 @@ st.markdown(
 
 st.divider()
 
+# Time and timeouts.
 st.subheader("Clock")
 
 qtr = st.radio(
@@ -139,7 +127,6 @@ qtr = st.radio(
     horizontal = True,
     key="qtr")
 clock = st.slider("Minutes Remaining", 0, 15, key="clock")
-
 
 col1, col2, col3 = st.columns([1, 1, 1])
 with col1:
@@ -158,33 +145,17 @@ with col3:
         key="away_timeouts" 
     ) 
 
-
-
-
-
 st.divider()
 
+# Field position.
 st.subheader("Field Position")
 
 yardline = st.slider("Possession Team Distance From Score (Yards)", 0, 100, key="yardline")
 
-# if home_pos == 0:
-#     yardline = 100 - yardline
-
-# st.markdown('<span style="color:48FF6A;">⬆ Goal Line</span>', unsafe_allow_html=True)
-
-# st.markdown(
-#         """
-#         <div style="text-align:left; font-size:1.0em; color:48FF6A !important">
-#          <span style="border:2px solid #48FF6A; padding:4px 18px; border-radius:8px;">⬆ Goal Line</span>
-#         </div>
-#         """, unsafe_allow_html=True
-#     )
-
-# Set goal line marker.
+# Goal line marker.
 st.markdown(
         """
-        <div style="text-align:left; font-size:1em;">
+        <div style="text-align:left; font-size:1em; color:48FF6A">
         <span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; 
          padding:4px 12px; color:#48FF6A;">⬆ Goal Line
         </span>
@@ -192,20 +163,9 @@ st.markdown(
         """, unsafe_allow_html=True
     )
 
-# "display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
-#     'padding:4px 12px; font-size:1em; color:#48FF6A; white-space:nowrap;">'
-#     'Away Team Winning
-
-# col1, col2, col3 = st.columns([1, 2, 1])
-# with col1:
-#     st.markdown('<span style="color:48FF6A;">⬆️ Goal Line</span>', unsafe_allow_html=True)
-# with col2:
-#     st.markdown("<center><span style='color:gray;'></span></center>", unsafe_allow_html=True)
-# with col3:
-#     st.markdown('<span style="color:48FF6A; float:right;">Away Team Favored</span>', unsafe_allow_html=True)
-
 st.divider()
 
+# Down and distance.
 st.subheader("Down & Distance")
 
 down = st.radio(
@@ -217,34 +177,15 @@ down = st.radio(
 ydstogo = st.slider("First Down Distance (Yards)", 0, 30, key="ydstogo")
 
 st.divider()
-# st.write("---")
 
+# Pregame point spread.
 st.subheader("Home Team Pregame Spread")
 home_spread = st.slider(" ",min_value = -21.0, 
     max_value = 21.0, 
     step = .5,
 format =  '%.1f', key="home_spread")
 
-# col1, col2, col3 = st.columns([2, 8, 2])
-# with col1:
-#     st.markdown(
-#         '<div style="test-align:left;">'
-#         '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
-#         'padding:6px 18px; font-size:1em; color:#48FF6A; '
-#         'white-space:nowrap;">Home Team Favored</span>',
-#         unsafe_allow_html=True
-#     )
-# with col3:
-#     st.markdown(
-#         '<div style="test-align:right;">'
-#         '<span style="display:inline-block; border:2px solid #48FF6A; border-radius:50px; '
-#         'padding:6px 18px; font-size:1em; color:#48FF6A; '
-#         'white-space:nowrap;">Away Team Favored</span>',
-#         unsafe_allow_html=True
-    # )
-
-# OMG this is so annoying.
-
+# Home/away labels.
 label_html_left = (
     '<span style="display:inline-block; border:1px solid #48FF6A; border-radius:12px; '
     'padding:4px 12px; font-size:1em; color:#48FF6A;">'
@@ -258,7 +199,7 @@ label_html_right = (
 
 st.markdown(
     f"""
-    <table style="width:100%; border-collapse:collapse; border:none;">
+    <table style="width:100%; border-collapse:inherit; border:none;  "> 
       <tr>
         <td style="text-align:left; border:none;">{label_html_left}</td>
         <td style="text-align:right; border:none;">{label_html_right}</td>
@@ -268,9 +209,11 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Create time_weight feature.
 game_seconds_remaining = ((4-qtr)*15+clock)*60
 time_weight = 1-(game_seconds_remaining/3600)
 
+# User inputs.
 user_inputs = {
     'yardline_100_home': yardline,
     'down': down,
@@ -283,24 +226,15 @@ user_inputs = {
     'away_timeouts_remaining':away_timeouts,
  }
 
-# st.write("Quarter Selected:", qtr)
+# Confirmation.
+print("Model loaded:", type(model))
 
-print("✅ Model loaded:", type(model))
-
-
-# if st.button("Predict"):
-
+# Create dataframe of inputs.
 X_input = pd.DataFrame([[user_inputs.get(col, 0) for col in user_inputs.keys()]], 
                        columns=user_inputs.keys())
 
-# if X_input['home_pos'] == 0:
-#     X_input['yardline_100_home'] = (100 - X_input['yardline_100_home'])
-
-
+# Reverse field position if away possession.
 X_input['yardline_100_home'] = X_input.apply(lambda X:(100-X['yardline_100_home']) if X['home_pos'] == 0 else X['yardline_100_home'], axis = 1)
-# st.write(X_input)
-
-# X_input['time_weight'] = .5
 
 # Convert probability to market probability.
 def prob_to_market_prob(prob):
@@ -382,6 +316,7 @@ st.markdown(
        width: 1.5rem;
     }}
 
+
     /* Floating panel attributes*/
     .fixed-2x2-panel {{
         position: fixed;
@@ -423,6 +358,10 @@ st.markdown(
         align-items: center;
         justify-content: center;
     }}
+    .st-emotion-cache-ujm5ma {{
+    color: #48FF6A;
+    }}
+
 
     /* Set cell background colors */
     .cell-home {{ background: #0525c5; }}

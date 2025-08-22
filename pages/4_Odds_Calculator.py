@@ -31,7 +31,6 @@ def prob_to_odds(prob):
     else:
         return round((1 - prob) / prob * 100)
 
-
 def prob_to_market_prob(prob, hold):
     p1 = prob
     p2 = 1-p1
@@ -60,15 +59,6 @@ def prob_to_market_odds(prob, hold):
         return f'(+{rounded_odds})'
     else:
         return f'({rounded_odds})'
-
-
-# home_win_prob = model.predict(X_input)[0]
-# home_odds = prob_to_market_odds(home_win_prob)
-# away_win_prob = 1-home_win_prob
-# away_odds = prob_to_market_odds(away_win_prob)
-
-# prob = st.text_input("test")
-
 
 if st.button("Calculate"):
     # st.write(type(prob)

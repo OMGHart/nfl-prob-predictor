@@ -1,11 +1,12 @@
+# Streamlit Home Page
 import streamlit as st
 
 
-st.title("Welcome to my data science portfolio!")
+st.title("Welcome to my Eastern University Capstone user interface!")
 st.markdown("""
-    Hi! I'm Hart. 
+    Hello! My name is Michael Hart. 
                 
-    I'm a master's candidate in Data Science at Eastern University. My professional interests include machine learning model deployment and automation pipelines.
+    I am a master's candidate in Data Science at Eastern University. My professional interests include machine learning model deployment and automation pipelines.
                 
     Outside of data science, I enjoy football, motorcycles, aviation, and locally brewed beverages.
 
